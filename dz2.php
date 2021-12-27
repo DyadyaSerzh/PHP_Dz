@@ -100,12 +100,16 @@ if (!empty($_POST['name4'])) {
         echo str_replace($html_name,$rep_link,$name4);
     //        echo ("<a href='$full_name'>$full_name</a>");
     };
-    
-    
-//    ||'https://'||'ftp://'
-        
-    
 }
+
+//$i = 0;
+$i = 10;
+
+do {
+    echo "Значення i: " . $i . "<br>";
+    $i++;
+} while($i < 10);
+
 ?>
     <script>
         let num=window.localStorage.getItem('key')
