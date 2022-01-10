@@ -19,7 +19,7 @@ foreach($alphArray as $key => $letter){
     $alphArray[$key]=trim($letter);
 }
 //
-// var_dump($alphArray);
+
 // $str="ілля, василь , катерина";
 if (!empty($_POST['names'])){
 $str=$_POST['names'];
