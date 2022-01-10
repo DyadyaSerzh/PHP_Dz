@@ -8,6 +8,8 @@
 </head>
 <body>
     <?php
+        // var 1
+        echo "variant 1 =>> ";
         function fibonacci()
         {
             echo '1';
@@ -20,9 +22,24 @@
             }
             return $fib;
         }
-        $res=implode(", ",fibonacci());
+        fibonacci();
+        echo "</br>";
         
-        
+        //var 2
+        echo "variant 2 =>> ";
+        function fibonacci2($x=1,$n=10){
+            static $i=0;
+            static $y=0;
+            echo "$x, ";
+            $y+=$x;
+            $i++;
+            echo "$y, ";
+            if($i<$n){
+                fibonacci2($x+$y);
+            };
+
+        };
+        fibonacci2();
     ?>
     
 </body>
