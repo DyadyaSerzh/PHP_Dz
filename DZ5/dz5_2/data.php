@@ -7,6 +7,7 @@
             'name' => 'Телефон 1',
             'price' => 3050,
             'qty' => 7,
+            'discount' => 5,
         ),
         array(
             'id' => 2,
@@ -14,6 +15,7 @@
             'name' => 'Телефон 2',
             'price' => 5580,
             'qty' => 4,
+            'discount' => 8,
         ),
         array(
             'id' => 3,
@@ -21,6 +23,7 @@
             'name' => 'Телефон 3',
             'price' => 8999,
             'qty' => 3,
+            'discount' => 16,
         ),
         array(
             'id' => 4,
@@ -28,6 +31,7 @@
             'name' => 'Телефон 4',
             'price' => 4800,
             'qty' => 5,
+            'discount' => 18,
         ),
         array(
             'id' => 5,
@@ -35,6 +39,7 @@
             'name' => 'Телефон 5',
             'price' => 5099,
             'qty' => 6,
+            'discount' => 10,
         ),
     );
     
@@ -44,6 +49,7 @@
             'name' => '',
             'price' => 0,
             'qty' => 0,
+            'discount' => 7,
         );
 
     // $res=sort($products);

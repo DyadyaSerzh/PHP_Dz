@@ -1,6 +1,12 @@
 <a href="<?php $_SERVER['PHP_SELF']; ?>?sort=price&order=0">Від дешевших до дорожчих</a>
     <br>
 <a href="<?php $_SERVER['PHP_SELF']; ?>?sort=price&order=1">Від дорожчих до дешевших</a>
+<br>
+<a href="<?php $_SERVER['PHP_SELF']; ?>?sort=price&order=0&discount=1">Від дешевших до дорожчих with discount</a>
+<br>
+<a href="<?php $_SERVER['PHP_SELF']; ?>?sort=price&order=1&discount=1">Від дорожчих до дешевших with discount</a>
+
+</form>
 
 
 <?php
@@ -16,6 +22,13 @@ if (isset($_GET['order'])) {
             $order = 0;
             
         } 
+if (isset($_GET['discount'])) {
+            $discount = $_GET['discount'];
+        } else {
+            $discount = 0;
+            
+        } 
+
         // DZ sorting
 
         
@@ -41,8 +54,16 @@ if (isset($_GET['order'])) {
             global $order;
             return ($order)?getValue($value2)-getValue($value1):getValue($value1)-getValue($value2);
         };
-        usort($products,"userSort");
+        foreach($products as &$product){
+            $product['price']=ceil($product['price']-$product['price']*$product['discount']/100*$discount);
+            };
 
+        if($sort=='price'){
+            usort($products,"userSort");
+        };
+        
+        
+        
         
    
 foreach($products as $product)  :
