@@ -46,6 +46,10 @@ if (isset($_GET['discount'])) {
         // $products=$sortArr;        
         
         // sorting by usort and user function
+        foreach($products as &$product){
+            $product['price']=ceil($product['price']-$product['price']*$product['discount']/100*$discount);
+            var_dump($product); 
+            };
         function getValue($val){
             global $sort;
             return $val[$sort];
@@ -54,10 +58,7 @@ if (isset($_GET['discount'])) {
             global $order;
             return ($order)?getValue($value2)-getValue($value1):getValue($value1)-getValue($value2);
         };
-        foreach($products as &$product){
-            $product['price']=ceil($product['price']-$product['price']*$product['discount']/100*$discount);
-            };
-
+        
         if($sort=='price'){
             usort($products,"userSort");
         };
