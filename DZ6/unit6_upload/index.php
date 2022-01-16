@@ -31,10 +31,39 @@
         
         foreach ($upload_files as $filename) {
             if ($filename !== "." && $filename !== ".." ) {
+                // dz 6.1 перевірка дати і переміщення
                 if ((date("Ymd")-3)>filectime("$upload_dir/$filename")) {
                     $fileNew="backup/".$filename;
                     rename(("$upload_dir/$filename"), $fileNew);   
                 };
+                // end 6.1
+                // dz 6.2
+                $reg='/^.*\.(txt)$/i';
+                if (preg_match($reg, $filename)) {
+                    echo 'txt';
+                    fopen("$upload_dir/$filename", 'r');
+                    $strArr=[];
+                    $fileArr=file("$upload_dir/$filename");
+                    
+                    foreach ($fileArr as $str) {
+                        $str1=explode(" ",$str);
+                        foreach ($str1 as $str) {
+                            $strArr[]=$str;
+                        }
+                    };
+                    var_dump($strArr);
+                    foreach($strArr as $word) {
+                        echo $word;
+                        echo "</br>";
+                        if (trim($word)=="тест") {
+                            unlink("$upload_dir/$filename");
+                            break;
+                            
+                            // fclose("$upload_dir/$filename");
+                        };
+                    }
+                };
+                // end dz6.2
                 echo "</br>";
                 if (getimagesize("$upload_dir/$filename") > 0) {
                     echo '<img src="' . "$upload_dir/$filename" . '">';
