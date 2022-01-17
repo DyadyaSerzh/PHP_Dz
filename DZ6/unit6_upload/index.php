@@ -16,6 +16,7 @@
         
         //$upload_dir = "C:/Users/mykhailo.pivkach/Documents/NetBeansProjects/unit6_upload/upload";
         $upload_dir = "upload";
+        $dest=[];
         if (isset($_FILES['filename'])) {
             $filename = $_FILES['filename']['name'];
             $tmp_filename = $_FILES['filename']['tmp_name'];
@@ -29,6 +30,8 @@
             mkdir('backup');
         };
         
+        
+
         foreach ($upload_files as $filename) {
             if ($filename !== "." && $filename !== ".." ) {
                 // dz 6.1 перевірка дати і переміщення
@@ -37,10 +40,9 @@
                     rename(("$upload_dir/$filename"), $fileNew);   
                 };
                 // end 6.1
-                // dz 6.2
+                
                 $reg='/^.*\.(txt)$/i';
                 if (preg_match($reg, $filename)) {
-                    echo 'txt';
                     fopen("$upload_dir/$filename", 'r');
                     $strArr=[];
                     $fileArr=file("$upload_dir/$filename");
@@ -51,19 +53,29 @@
                             $strArr[]=$str;
                         }
                     };
-                    var_dump($strArr);
                     foreach($strArr as $word) {
-                        echo $word;
-                        echo "</br>";
+                        
+                        // dz 6.2
                         if (trim($word)=="тест") {
                             unlink("$upload_dir/$filename");
                             break;
+                            // end dz6.2            
                             
-                            // fclose("$upload_dir/$filename");
                         };
-                    }
+                        //dz 6.3
+                        if ($filename=='source.txt') {
+                            $tempWord=[];
+                            for ($n=0;$n<=mb_strlen($word);$n++){
+                                array_unshift($tempWord,mb_substr($word,$n,1));
+                            };
+                            $dest[]=implode("",$tempWord);
+                            
+                        };
+                    };
+                    
+                    
                 };
-                // end dz6.2
+                
                 echo "</br>";
                 if (getimagesize("$upload_dir/$filename") > 0) {
                     echo '<img src="' . "$upload_dir/$filename" . '">';
@@ -72,6 +84,15 @@
                 // echo date('r',filectime("$upload_dir/$filename"));
             } 
         }
+        //dz 6.3
+        implode(" ",$dest);
+        if(file_exists("$upload_dir/source.txt")){
+            // fopen("$upload_dir/dest.txt",'w+');
+            $file=fopen("$upload_dir/dest.txt",'w');
+            fwrite($file, implode(" ",$dest));
+            // echo (implode(" ",$dest));
+            fclose($file);
+        };
     ?>
 
 </body>
