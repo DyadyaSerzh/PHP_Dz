@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     </head>
 <body>
+    <style>
+        img {
+            max-width: 500px;
+        }
+    </style>
     
     <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
         <input type="hidden" name="MAX_FILE_SIZE" value="10000000" >
