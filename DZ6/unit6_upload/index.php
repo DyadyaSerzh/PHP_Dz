@@ -36,11 +36,10 @@
         };
         
         
-
         foreach ($upload_files as $filename) {
             if ($filename !== "." && $filename !== ".." ) {
                 // dz 6.1 перевірка дати і переміщення
-                if ((date("Ymd")-3)>filectime("$upload_dir/$filename")) {
+                if ((date("Ymd")-3)>date("Ymd",filectime("$upload_dir/$filename"))) {
                     $fileNew="backup/".$filename;
                     rename(("$upload_dir/$filename"), $fileNew);   
                 };
