@@ -58,6 +58,16 @@
                         }
                     };
                     foreach($strArr as $word) {
+                        //dz 6.3
+                        if ($filename=='source.txt') {
+                            array_unshift($dest,$word);
+                            
+                            // $tempWord=[];
+                            // for ($n=0;$n<=mb_strlen($word);$n++){
+                            //     array_unshift($tempWord,mb_substr($word,$n,1));
+                            // $dest[]=implode("",$tempWord);    
+                            // };
+                        };
                         
                         // dz 6.2
                         if (trim($word)=="тест") {
@@ -66,15 +76,7 @@
                             // end dz6.2            
                             
                         };
-                        //dz 6.3
-                        if ($filename=='source.txt') {
-                            $tempWord=[];
-                            for ($n=0;$n<=mb_strlen($word);$n++){
-                                array_unshift($tempWord,mb_substr($word,$n,1));
-                            };
-                            $dest[]=implode("",$tempWord);
-                            
-                        };
+                        
                     };
                     
                     
