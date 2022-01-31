@@ -18,17 +18,29 @@
     </form>
     
     <?php 
+    $upload_dir = "upload";
+    // dz 7.1
+        class MoveObj
+        {   
+            public $upload_dir = "upload";
+            public $filename="";
+            public $tmp_filename="";
+            function __construct($name,$tmpName) {
+                $this->filename=$name;
+                $this->tmp_filename=$tmpName;
+                
+            }  
+            public function MoveObj(){
+                move_uploaded_file($this->tmp_filename, "$this->upload_dir/$this->filename");    
+            }
+        }
+            
         
-        //$upload_dir = "C:/Users/mykhailo.pivkach/Documents/NetBeansProjects/unit6_upload/upload";
-        $upload_dir = "upload";
         $dest=[];
         if (isset($_FILES['filename'])) {
-            $filename = $_FILES['filename']['name'];
-            $tmp_filename = $_FILES['filename']['tmp_name'];
-            move_uploaded_file($tmp_filename, "$upload_dir/$filename");
+            $obj=new MoveObj(($_FILES['filename']['name']),($_FILES['filename']['tmp_name']));
+            $obj->MoveObj();
         }
-        
-        //var_dump($upload_files);
         
         $upload_files = scandir($upload_dir);
         if (!file_exists('backup')) {
@@ -61,12 +73,6 @@
                         //dz 6.3
                         if ($filename=='source.txt') {
                             array_unshift($dest,$word);
-                            
-                            // $tempWord=[];
-                            // for ($n=0;$n<=mb_strlen($word);$n++){
-                            //     array_unshift($tempWord,mb_substr($word,$n,1));
-                            // $dest[]=implode("",$tempWord);    
-                            // };
                         };
                         
                         // dz 6.2
@@ -74,7 +80,6 @@
                             unlink("$upload_dir/$filename");
                             break;
                             // end dz6.2            
-                            
                         };
                         
                     };
@@ -86,17 +91,13 @@
                 if (getimagesize("$upload_dir/$filename") > 0) {
                     echo '<img src="' . "$upload_dir/$filename" . '">';
                 };
-                
-                // echo date('r',filectime("$upload_dir/$filename"));
             } 
         }
         //dz 6.3
         implode(" ",$dest);
         if(file_exists("$upload_dir/source.txt")){
-            // fopen("$upload_dir/dest.txt",'w+');
             $file=fopen("$upload_dir/dest.txt",'w');
             fwrite($file, implode(" ",$dest));
-            // echo (implode(" ",$dest));
             fclose($file);
         };
     ?>
